@@ -1,5 +1,5 @@
 <h3 align="center">Procontor</h3>
-<h1 align="center"> <img src="https://github.com/k4rkarov/Procontor/blob/main/carbon.png" alt="procontor" width="600px"></h1>
+<h1 align="center"> <img src="https://github.com/k4rkarov/Procontor/blob/main/carbon.png" alt="procontor" width="500px"></h1>
 
 The idea behind Procontor is to automate the creation of LUKS-encrypted containers for securing sensitive projects. This ensures that all data related to a specific project is protected with a password. Always remember to store your passwords securely, such as in a password vault like `keepassxc`.
 
@@ -9,7 +9,7 @@ Procontor not only creates the container but also automatically mounts it, provi
 # Download
 
 ```
-  git clone https://github.com/k4rkarov/Procontor && cd Procontor
+  git clone https://github.com/k4rkarov/procontor && cd procontor
 ```
 
 # Usage
