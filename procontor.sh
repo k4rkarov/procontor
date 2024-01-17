@@ -6,13 +6,11 @@ RED='\033[0;31m'
 BLUE='\033[0;36m'
 CLEAN='\033[0m'
 
-# Função para exibir mensagens de erro e sair
 error_exit() {
     echo -e "${RED}Error: $1${CLEAN}" >&2
     exit 1
 }
 
-# Função para exibir ajuda
 show_help() {
     echo -e "${WHITE}Usage:${CLEAN}"
     echo -e "${WHITE}  ./procontor.sh [OPTIONS]${CLEAN}"
@@ -25,7 +23,6 @@ show_help() {
     exit 0
 }
 
-# Processar argumentos de linha de comando
 if [ "$#" -eq 0 ]; then
     show_help
 fi
@@ -50,12 +47,10 @@ while [[ "$#" -gt 0 ]]; do
     esac
 done
 
-# Verificar dependências
 if ! command -v cryptsetup &> /dev/null; then
     error_exit "cryptsetup is not installed. Please install it."
 fi
 
-# Função para criar o contêiner
 create_container() {
     echo -e "${BLUE}01 Creating a ${size} container for $project-cont${CLEAN}"
     if [[ "$size" =~ ^[0-9]+[GgMm]$ ]]; then
@@ -67,14 +62,12 @@ create_container() {
     echo ""
 }
 
-# Função para criptografar o contêiner
 encrypt_container() {
     echo -e "${BLUE}02 Encrypting the $project-cont container with LUKS${CLEAN}"
     sudo cryptsetup -y --cipher aes-xts-plain64 --hash sha512 --key-size 512 -v luksFormat "$project-cont" || error_exit "Failed to encrypt the container."
     echo ""
 }
 
-# Função para criar o dispositivo
 create_device() {
     echo -e "${BLUE}03 Creating the device as project-device${CLEAN}"
     sudo cryptsetup luksOpen "$project-cont" project-device || error_exit "Failed to create the device."
@@ -83,14 +76,12 @@ create_device() {
     echo ""
 }
 
-# Função para criar o sistema de arquivos
 create_filesystem() {
     echo -e "${BLUE}04 Creating a file system in the device${CLEAN}"
     sudo mkfs.xfs /dev/mapper/project-device || error_exit "Failed to create the filesystem."
     echo ""
 }
 
-# Função para montar o dispositivo
 mount_device() {
     echo -e "${BLUE}05 Mounting the device at /mnt/project-mount${CLEAN}"
     sudo mount /dev/mapper/project-device /mnt/project-mount/ || error_exit "Failed to mount the device."
@@ -98,13 +89,11 @@ mount_device() {
     echo ""
 }
 
-# Função para definir a propriedade
 set_ownership() {
     echo -e "${BLUE}06 Changing the project-mount ownership to $USER ${CLEAN}"
     sudo chown $USER -R /mnt/project-mount/ || error_exit "Failed to change ownership."
 }
 
-# Loop para criar o contêiner
 while true
 do
     echo -e "                                  _             "
