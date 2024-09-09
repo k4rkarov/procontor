@@ -25,7 +25,7 @@ Options:
 Description:
   Procontor is a Project Container Creator designed to create LUKS-encrypted containers for handling sensitive projects and subsequently mount them for further use. Please remember the password you've set for your container!
 Note:
-  The ideal container naming should follow these rules: it should have the client's name followed by the date of the project start. For instance: evilcorp_14-02-24
+  The ideal container naming should follow this pattern: year-month-day_projectType_client_yourInitials. For instance: 2023-10-02_Web_evilcorp_kd
 ```
 
 # Example
