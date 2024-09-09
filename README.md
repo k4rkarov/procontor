@@ -31,5 +31,5 @@ Note:
 # Example
 
 ```
-$ ./procontor.sh -p evilcorp_23-07-24 -s 200M
+$ ./procontor.sh -p 2023-10-02_Web_evilcorp_kd -s 200M
 ```
