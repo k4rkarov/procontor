@@ -104,16 +104,26 @@ create_filesystem() {
     echo ""
 }
 
+prepare_mountpoint() {
+    echo -e "${BLUE}05 Ensuring /mnt/project-mount exists${CLEAN}"
+    if [ ! -d "/mnt/project-mount" ]; then
+        sudo mkdir -p /mnt/project-mount || error_exit "Failed to create /mnt/project-mount."
+        echo -e "${BLUE}Directory /mnt/project-mount created.${CLEAN}"
+    else
+        echo -e "${BLUE}/mnt/project-mount already exists.${CLEAN}"
+    fi
+}
+
 mount_device() {
-    echo -e "${BLUE}05 Mounting the device at /mnt/project-mount${CLEAN}"
+    echo -e "${BLUE}06 Mounting the device at /mnt/project-mount${CLEAN}"
     sudo mount /dev/mapper/project-device /mnt/project-mount/ || error_exit "Failed to mount the device."
     lsblk
     echo ""
 }
 
 set_ownership() {
-    echo -e "${BLUE}06 Changing the project-mount ownership to $USER ${CLEAN}"
-    sudo chown $USER -R /mnt/project-mount/ || error_exit "Failed to change ownership."
+    echo -e "${BLUE}07 Changing the ownership of /mnt/project-mount to $USER ${CLEAN}"
+    sudo chown "$USER":"$USER" -R /mnt/project-mount/ || error_exit "Failed to change ownership."
 }
 
 while true
@@ -125,13 +135,14 @@ do
     echo -e " | .__/|_|  \___/ \___\___/|_| |_|\__\___/|_|   "
     echo -e " |_|                                            "
     echo ""
-    echo -e "     by k4rkarov (v3.1)"
+    echo -e "     by k4rkarov"
     echo ""
     echo ""
     create_container
     encrypt_container
     create_device
     create_filesystem
+    prepare_mountpoint
     mount_device
     set_ownership
     echo ""
@@ -140,4 +151,3 @@ do
     echo ""
     break
 done
-
