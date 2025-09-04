@@ -21,7 +21,7 @@ show_help() {
     echo -e "${WHITE}Description:${CLEAN}"
     echo -e "  Procontor is a Project Container Creator designed to create LUKS-encrypted containers for handling sensitive projects and subsequently mount them for further use. Please remember the password you've set for your container!"
     echo -e "${WHITE}Note:${CLEAN}"
-    echo -e "  The ideal container naming should follow this pattern: year-month-day_projectType_client_yourInitials. For instance: 2023-10-02_Web_evilcorp_kd"
+    echo -e "  The ideal container naming should follow this pattern: year-month-day-projectName-initials. For instance: 2023-10-02-evilcorp"
     exit 0
 }
 
